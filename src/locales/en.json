@@ -1,0 +1,81 @@
+{
+  "app": {
+    "title": "Digital Voter Info Helper",
+    "subtitle": "Step-by-step guide for Bangladesh Voter Services",
+    "langSwitch": "বাংলা"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "links": "Important Links",
+    "contact": "Contact"
+  },
+  "services": {
+    "title": "Select a Service",
+    "nidRegistration": {
+      "title": "NID Registration",
+      "description": "How to register for a new National ID Card",
+      "steps": [
+        "Visit the nearest Election Commission office",
+        "Collect the NID registration form",
+        "Fill the form with required information",
+        "Attach necessary documents (birth certificate, passport-sized photos, etc.)",
+        "Submit the application and collect receipt",
+        "Wait for verification process",
+        "Collect your NID card when notified"
+      ]
+    },
+    "voterUpdate": {
+      "title": "Voter Information Update",
+      "description": "Update your existing voter information",
+      "steps": [
+        "Visit the official Election Commission website",
+        "Log in with your existing NID number",
+        "Select 'Update Information' option",
+        "Choose which information to update (address, phone number, etc.)",
+        "Fill in the new information",
+        "Upload supporting documents if required",
+        "Submit your application and note the reference number"
+      ]
+    },
+    "firstTimeVoter": {
+      "title": "First-time Voter Registration",
+      "description": "Register as a first-time voter",
+      "steps": [
+        "Check if you're eligible (must be 18 years or older)",
+        "Visit the local Election Commission office during registration period",
+        "Bring identification documents (birth certificate, etc.)",
+        "Fill out the voter registration form",
+        "Have your biometric data collected (photo, fingerprints)",
+        "Receive a confirmation slip",
+        "Check voter list during the verification period",
+        "Collect your voter ID card when ready"
+      ]
+    }
+  },
+  "links": {
+    "title": "Important Links",
+    "ec": "Bangladesh Election Commission",
+    "nid": "National ID Portal",
+    "voter": "Voter Registration Service",
+    "status": "Application Status Check"
+  },
+  "contact": {
+    "title": "Contact Information",
+    "ecHelpline": "Election Commission Helpline",
+    "ecEmail": "Email",
+    "ecWebsite": "Website"
+  },
+  "common": {
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "select": "Select",
+    "learnMore": "Learn More",
+    "finish": "Finish",
+    "reset": "Reset",
+    "allStepsCompleted": "All steps completed - you're finished!",
+    "step": "Step"
+  }
+}
