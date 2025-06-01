@@ -17,14 +17,14 @@ The Bangladesh Voter Helper is a bilingual (English/Bangla) web application buil
 
 1. **GitHub Repository Setup**:
    - Create a repository at https://github.com/new
-   - Name: "voter-helper"
+   - Name: "bangladesh-voter-helper"
    - Description: "Digital Voter Info Helper for Bangladesh"
    - Make it Public
    - Don't initialize with any files
 
 2. **Push Code to GitHub**:
    ```bash
-   git remote add origin https://github.com/YOUR_USERNAME/voter-helper.git
+   git remote add origin https://github.com/eklasdev/bangladesh-voter-helper.git
    git branch -M main
    git push -u origin main
    ```

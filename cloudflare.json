@@ -1,5 +1,5 @@
 {
-  "name": "voter-helper",
+  "name": "bangladesh-voter-helper",
   "build": {
     "command": "npm run build",
     "output_directory": "dist",
