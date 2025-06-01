@@ -1,4 +1,4 @@
-# Digital Voter Info Helper
+# Bangladesh Voter Information Helper
 
 A bilingual (English/Bangla) web application that provides step-by-step guides for Bangladesh voter services, including NID registration, voter information updates, and first-time voter registration.
 
@@ -30,33 +30,22 @@ A bilingual (English/Bangla) web application that provides step-by-step guides f
 ### Installation
 
 1. Clone the repository:
-
 ```bash
 git clone https://github.com/yourusername/voter-helper.git
 cd voter-helper
 ```
 
 2. Install dependencies:
-
 ```bash
 npm install
 ```
 
 3. Start the development server:
-
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:5173](http://localhost:5173) in your browser to view the application.
-
-## Available Scripts
-
-- `npm run dev` - Start the development server
-- `npm run build` - Build the application for production
-- `npm run preview` - Preview the production build locally
-- `npm run lint` - Run ESLint to check for code quality issues
-- `npm run test` - Run tests (when added)
+4. Open [http://localhost:5173](http://localhost:5173) in your browser
 
 ## Project Structure
 
@@ -73,29 +62,40 @@ voter-helper/
 │   ├── App.tsx          # Main application component
 │   ├── i18n.ts          # i18n configuration
 │   └── main.tsx         # Application entry point
-├── .gitignore           # Git ignore file
-├── index.html           # HTML template
-├── package.json         # Project dependencies and scripts
-├── tsconfig.json        # TypeScript configuration
-└── vite.config.ts       # Vite configuration
 ```
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+- `npm run format` - Format code with Prettier
 
 ## Deploying to Cloudflare Pages
 
-1. Push your code to a GitHub repository.
+### Manual Deployment
 
-2. Log in to the Cloudflare dashboard and go to Pages.
+1. Build the project:
+```bash
+npm run build
+```
 
-3. Connect your GitHub account and select the repository.
+2. Log in to the Cloudflare Dashboard
+3. Navigate to Pages
+4. Create a new project and upload the `dist` directory
 
-4. Configure the build settings:
+### Automatic Deployment with GitHub
+
+1. Push your code to GitHub
+2. Connect your GitHub repository to Cloudflare Pages
+3. Configure build settings:
    - Build command: `npm run build`
    - Build output directory: `dist`
-   - Environment variables (if needed)
+4. Configure environment variables if needed
+5. Deploy the site
 
-5. Deploy the site.
-
-6. Your site will be available at `https://your-project-name.pages.dev`.
+Your site will be available at `https://your-project-name.pages.dev`.
 
 ## Adding Content
 
@@ -119,59 +119,9 @@ Edit the translation files in `src/locales/` to update or add new translations.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT
 
-# React + TypeScript + Vite
+## Credits
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- Powered by [ksmp.pages.dev](https://ksmp.pages.dev)
+- Supported by [eklas.tech](https://eklas.tech)
