@@ -1,7 +1,19 @@
 import React from 'react';
-import { Card, CardContent, CardActions, Typography, Button, Box, useTheme } from '@mui/material';
+import {
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+  Button,
+  Box,
+  useTheme,
+  Avatar,
+  Stack,
+} from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { alpha } from '@mui/material/styles';
 
 interface ServiceCardProps {
   serviceKey: 'nidRegistration' | 'voterUpdate' | 'firstTimeVoter';
@@ -12,70 +24,93 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ serviceKey, icon }) => {
   const { t } = useTranslation();
   const theme = useTheme();
 
-  // Services background colors
-  const serviceColors = {
-    nidRegistration: theme.palette.mode === 'dark' ? '#1a237e' : '#e8eaf6',
-    voterUpdate: theme.palette.mode === 'dark' ? '#004d40' : '#e0f2f1',
-    firstTimeVoter: theme.palette.mode === 'dark' ? '#b71c1c' : '#ffebee',
-  };
-
   return (
     <Card
-      elevation={3}
       sx={{
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+        p: 1.5,
+        background:
+          theme.palette.mode === 'light'
+            ? `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.08)} 0%, ${alpha(
+                theme.palette.primary.main,
+                0.02,
+              )} 100%)`
+            : `linear-gradient(135deg, ${alpha(theme.palette.primary.light, 0.2)} 0%, ${alpha(
+                theme.palette.primary.dark,
+                0.3,
+              )} 100%)`,
+        borderRadius: 28,
+        border: `1px solid ${alpha(theme.palette.primary.main, theme.palette.mode === 'light' ? 0.08 : 0.16)}`,
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
         '&:hover': {
-          transform: 'translateY(-5px)',
-          boxShadow: 6,
+          transform: 'translateY(-6px)',
+          boxShadow:
+            theme.palette.mode === 'light'
+              ? '0px 24px 48px rgba(26, 115, 232, 0.12)'
+              : '0px 28px 50px rgba(0, 0, 0, 0.7)',
         },
-        bgcolor: serviceColors[serviceKey],
       }}
     >
-      {icon && (
-        <Box
+      <Box
+        sx={{
+          flexGrow: 1,
+          backgroundColor: theme.palette.background.paper,
+          borderRadius: 22,
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+        }}
+      >
+        <CardContent
           sx={{
+            flexGrow: 1,
             display: 'flex',
-            justifyContent: 'center',
-            pt: 2,
-            color: theme.palette.mode === 'dark' ? 'white' : 'primary.main',
+            flexDirection: 'column',
+            gap: 2,
+            py: 4,
           }}
         >
-          {icon}
-        </Box>
-      )}
+          {icon && (
+            <Avatar
+              variant="rounded"
+              sx={{
+                width: 64,
+                height: 64,
+                bgcolor: alpha(theme.palette.primary.main, 0.12),
+                color: theme.palette.primary.main,
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+                {icon}
+              </Box>
+            </Avatar>
+          )}
+          <Stack spacing={1}>
+            <Typography variant="h5" component="h3" sx={{ fontWeight: 600 }}>
+              {t(`services.${serviceKey}.title`)}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              {t(`services.${serviceKey}.description`)}
+            </Typography>
+          </Stack>
+        </CardContent>
 
-      <CardContent sx={{ flexGrow: 1 }}>
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="div"
-          align="center"
-          sx={{
-            color: theme.palette.mode === 'dark' ? 'white' : 'text.primary',
-            fontWeight: 'bold',
-          }}
-        >
-          {t(`services.${serviceKey}.title`)}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" align="center">
-          {t(`services.${serviceKey}.description`)}
-        </Typography>
-      </CardContent>
-
-      <CardActions sx={{ justifyContent: 'center', pb: 2 }}>
-        <Button
-          component={Link}
-          to={`/services/${serviceKey}`}
-          variant="contained"
-          color="primary"
-          size="medium"
-        >
-          {t('common.learnMore')}
-        </Button>
-      </CardActions>
+        <CardActions sx={{ px: 4, pb: 4 }}>
+          <Button
+            component={Link}
+            to={`/services/${serviceKey}`}
+            variant="contained"
+            color="primary"
+            endIcon={<ArrowForwardIcon />}
+            fullWidth
+          >
+            {t('common.viewDetails')}
+          </Button>
+        </CardActions>
+      </Box>
     </Card>
   );
 };

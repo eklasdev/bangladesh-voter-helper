@@ -2,7 +2,16 @@
   "app": {
     "title": "Digital Voter Info Helper",
     "subtitle": "Step-by-step guide for Bangladesh Voter Services",
-    "langSwitch": "বাংলা"
+    "langSwitch": "বাংলা",
+    "tagline": "Trusted guidance for every Bangladeshi voter",
+    "supporting": "We simplify government processes with clear language and actionable steps so you can focus on what matters—your civic voice.",
+    "ctaPrimary": "Browse services",
+    "ctaSecondary": "Get help now",
+    "featureChips": {
+      "verified": "Government resources",
+      "stepByStep": "Step-by-step guides",
+      "bilingual": "Bangla & English"
+    }
   },
   "nav": {
     "home": "Home",
@@ -12,6 +21,11 @@
   },
   "services": {
     "title": "Select a Service",
+    "helper": "Choose a guided flow to learn exactly which forms, documents, and next steps you need for each scenario.",
+    "helperDetail": "From first-time registration to information updates, our Google-inspired layout keeps instructions readable, responsive, and ready for action.",
+    "stepsTitle": "Follow the journey",
+    "supportTitle": "Need a boost?",
+    "supportDescription": "Reach out to the Election Commission or explore curated resources whenever you need extra assistance.",
     "nidRegistration": {
       "title": "NID Registration",
       "description": "How to register for a new National ID Card",
@@ -54,17 +68,62 @@
     }
   },
   "links": {
-    "title": "Important Links",
-    "ec": "Bangladesh Election Commission",
-    "nid": "National ID Portal",
-    "voter": "Voter Registration Service",
-    "status": "Application Status Check"
+    "title": "Official resources",
+    "heading": "Trusted digital services for every voter",
+    "description": "Jump directly to verified government portals for applications, updates, and status checks.",
+    "officialLabel": "Official site",
+    "disclaimer": "All links open verified government services in a new tab. Always confirm the URL before sharing personal information.",
+    "items": {
+      "ec": {
+        "title": "Bangladesh Election Commission",
+        "description": "Read the latest announcements, notices, and voter services from the Election Commission."
+      },
+      "nid": {
+        "title": "National ID Portal",
+        "description": "Apply for a new National ID card, reprint an existing card, or manage your application status."
+      },
+      "voter": {
+        "title": "Voter Registration Service",
+        "description": "Register as a new voter or update your voter record without leaving home."
+      },
+      "status": {
+        "title": "Application Status Check",
+        "description": "Track the progress of your NID or voter registration request in real time."
+      }
+    }
   },
   "contact": {
     "title": "Contact Information",
+    "headline": "Speak with the Election Commission in minutes",
+    "description": "Direct phone, email, and online support to resolve voter and NID questions quickly.",
+    "detailsTitle": "Contact channels",
+    "officeHoursTitle": "Office hours",
+    "faqTitle": "Frequently asked questions",
+    "faqPrompt": "Still curious? Explore the Election Commission's official FAQ",
+    "faqLinkText": "FAQ page",
+    "secondaryCta": "Visit the NID service portal",
     "ecHelpline": "Election Commission Helpline",
     "ecEmail": "Email",
-    "ecWebsite": "Website"
+    "ecWebsite": "Website",
+    "ecAddress": "Head office",
+    "officeHours": [
+      { "day": "Sunday – Thursday", "hours": "9:00 AM – 5:00 PM" },
+      { "day": "Friday – Saturday", "hours": "Weekend closure" }
+    ],
+    "faq": [
+      {
+        "question": "When can I register to vote?",
+        "answer": "You can register once you turn 18. Watch for official registration campaigns and deadlines announced throughout the year."
+      },
+      {
+        "question": "How long does it take to receive an NID card?",
+        "answer": "Most applicants receive their card within 30–90 days depending on verification timelines and workload."
+      },
+      {
+        "question": "Can I update my address online?",
+        "answer": "Yes. Submit changes through the NID portal, then complete any required in-person verification if prompted."
+      }
+    ]
   },
   "common": {
     "next": "Next",
@@ -76,6 +135,19 @@
     "finish": "Finish",
     "reset": "Reset",
     "allStepsCompleted": "All steps completed - you're finished!",
-    "step": "Step"
+    "step": "Step",
+    "viewDetails": "View details",
+    "openLink": "Open link",
+    "invalidServiceTitle": "Invalid service",
+    "invalidServiceMessage": "The requested service could not be found.",
+    "backToHome": "Back to home",
+    "startOver": "Start over",
+    "exploreServices": "Explore more resources",
+    "backToServices": "Return to services"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for has moved or no longer exists.",
+    "cta": "Back to home"
   }
 }

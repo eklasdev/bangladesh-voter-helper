@@ -9,21 +9,21 @@ import {
   IconButton,
   Drawer,
   List,
-  ListItem,
+  ListItemButton,
   ListItemText,
   Container,
   useMediaQuery,
   useTheme,
-  Switch,
-  FormControlLabel,
+  Divider,
+  Stack,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import HomeIcon from '@mui/icons-material/Home';
-import ListIcon from '@mui/icons-material/List';
-import LinkIcon from '@mui/icons-material/Link';
-import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import LanguageIcon from '@mui/icons-material/Language';
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import { Link, useLocation } from 'react-router-dom';
 import Footer from './Footer';
+import { alpha } from '@mui/material/styles';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -44,10 +44,10 @@ const Layout: React.FC<LayoutProps> = ({ children, toggleTheme, isDarkMode }) =>
   };
 
   const navItems = [
-    { key: 'home', text: t('nav.home'), path: '/', icon: <HomeIcon /> },
-    { key: 'services', text: t('nav.services'), path: '/services', icon: <ListIcon /> },
-    { key: 'links', text: t('nav.links'), path: '/links', icon: <LinkIcon /> },
-    { key: 'contact', text: t('nav.contact'), path: '/contact', icon: <ContactSupportIcon /> },
+    { key: 'home', text: t('nav.home'), path: '/' },
+    { key: 'services', text: t('nav.services'), path: '/services' },
+    { key: 'links', text: t('nav.links'), path: '/links' },
+    { key: 'contact', text: t('nav.contact'), path: '/contact' },
   ];
 
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -62,48 +62,86 @@ const Layout: React.FC<LayoutProps> = ({ children, toggleTheme, isDarkMode }) =>
   };
 
   const isActivePath = (path: string) => {
-    return location.pathname === path;
+    if (path === '/') {
+      return location.pathname === '/';
+    }
+    return location.pathname === path || location.pathname.startsWith(`${path}/`);
   };
 
   const drawer = (
     <Box
-      sx={{ width: 250 }}
+      sx={{ width: 280, py: 2 }}
       role="presentation"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
+      <Typography variant="subtitle1" sx={{ px: 3, pb: 1, fontWeight: 600 }}>
+        {t('app.title')}
+      </Typography>
       <List>
         {navItems.map(item => (
-          <ListItem
+          <ListItemButton
             key={item.key}
             component={Link}
             to={item.path}
+            selected={isActivePath(item.path)}
             sx={{
-              color: 'text.primary',
-              bgcolor: isActivePath(item.path) ? 'action.selected' : 'transparent',
+              borderRadius: 3,
+              mx: 2,
+              mb: 1,
+              '&.Mui-selected': {
+                backgroundColor: alpha(theme.palette.primary.main, 0.12),
+                color: theme.palette.primary.main,
+              },
               '&:hover': {
-                bgcolor: 'action.hover',
+                backgroundColor: alpha(theme.palette.primary.main, 0.1),
               },
             }}
           >
-            <Box sx={{ mr: 2 }}>{item.icon}</Box>
             <ListItemText primary={item.text} />
-          </ListItem>
+          </ListItemButton>
         ))}
       </List>
-      <Box sx={{ mx: 2, mt: 2 }}>
-        <FormControlLabel
-          control={<Switch checked={isDarkMode} onChange={toggleTheme} color="primary" />}
-          label={isDarkMode ? 'Dark Mode' : 'Light Mode'}
-        />
+      <Divider sx={{ my: 2 }} />
+      <Box sx={{ px: 3 }}>
+        <Button
+          fullWidth
+          variant="outlined"
+          onClick={toggleTheme}
+          startIcon={isDarkMode ? <LightModeOutlinedIcon /> : <DarkModeOutlinedIcon />}
+          sx={{ mb: 1.5 }}
+        >
+          {isDarkMode ? 'Light mode' : 'Dark mode'}
+        </Button>
+        <Button fullWidth variant="contained" onClick={toggleLanguage} startIcon={<LanguageIcon />}>
+          {t('app.langSwitch')}
+        </Button>
       </Box>
     </Box>
   );
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <AppBar position="sticky">
-        <Toolbar>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: theme.palette.background.default,
+        backgroundImage:
+          theme.palette.mode === 'light'
+            ? 'radial-gradient(circle at 10% 20%, rgba(26, 115, 232, 0.12) 0%, transparent 55%), radial-gradient(circle at 80% 0%, rgba(52, 168, 83, 0.12) 0%, transparent 45%)'
+            : 'radial-gradient(circle at 20% 20%, rgba(138, 180, 248, 0.12) 0%, transparent 55%)',
+      }}
+    >
+      <AppBar
+        position="sticky"
+        sx={{
+          top: 0,
+          borderBottom: `1px solid ${alpha(theme.palette.common.black, theme.palette.mode === 'light' ? 0.05 : 0.2)}`,
+          backgroundColor: alpha(theme.palette.background.paper, theme.palette.mode === 'light' ? 0.9 : 0.75),
+        }}
+      >
+        <Toolbar sx={{ minHeight: { xs: 64, md: 72 } }}>
           {isMobile && (
             <IconButton
               size="large"
@@ -123,53 +161,94 @@ const Layout: React.FC<LayoutProps> = ({ children, toggleTheme, isDarkMode }) =>
             sx={{
               flexGrow: 1,
               textDecoration: 'none',
-              color: 'inherit',
+              color: theme.palette.text.primary,
+              fontWeight: 700,
+              letterSpacing: '-0.3px',
             }}
           >
             {t('app.title')}
           </Typography>
 
           {!isMobile && (
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Stack direction="row" spacing={1} alignItems="center" sx={{ mr: 2 }}>
               {navItems.map(item => (
                 <Button
                   key={item.key}
                   component={Link}
                   to={item.path}
+                  variant={isActivePath(item.path) ? 'contained' : 'text'}
+                  color={isActivePath(item.path) ? 'primary' : 'inherit'}
                   sx={{
-                    color: 'white',
-                    bgcolor: isActivePath(item.path) ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
-                    '&:hover': {
-                      bgcolor: 'rgba(255, 255, 255, 0.2)',
-                    },
-                    mx: 0.5,
+                    color: isActivePath(item.path)
+                      ? theme.palette.primary.contrastText
+                      : theme.palette.text.primary,
+                    fontWeight: 600,
+                    px: 2.5,
+                    py: 1,
                   }}
-                  startIcon={item.icon}
                 >
                   {item.text}
                 </Button>
               ))}
-              <FormControlLabel
-                control={<Switch checked={isDarkMode} onChange={toggleTheme} color="default" />}
-                label={isDarkMode ? 'Dark' : 'Light'}
-                sx={{ color: 'white', ml: 2 }}
-              />
-            </Box>
+            </Stack>
           )}
 
-          <Button color="inherit" onClick={toggleLanguage} sx={{ ml: 2 }}>
-            {t('app.langSwitch')}
-          </Button>
+          {!isMobile && (
+            <Stack direction="row" spacing={1} alignItems="center">
+              <IconButton
+                color="inherit"
+                onClick={toggleTheme}
+                sx={{
+                  borderRadius: '50%',
+                  backgroundColor: alpha(theme.palette.primary.main, 0.08),
+                }}
+              >
+                {isDarkMode ? <LightModeOutlinedIcon /> : <DarkModeOutlinedIcon />}
+              </IconButton>
+              <Button
+                variant="outlined"
+                onClick={toggleLanguage}
+                startIcon={<LanguageIcon />}
+                sx={{ fontWeight: 600 }}
+              >
+                {t('app.langSwitch')}
+              </Button>
+            </Stack>
+          )}
+
+          {isMobile && (
+            <IconButton
+              color="inherit"
+              onClick={toggleTheme}
+              sx={{
+                ml: 1,
+                borderRadius: '50%',
+                backgroundColor: alpha(theme.palette.primary.main, 0.12),
+              }}
+            >
+              {isDarkMode ? <LightModeOutlinedIcon /> : <DarkModeOutlinedIcon />}
+            </IconButton>
+          )}
         </Toolbar>
       </AppBar>
 
-      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={toggleDrawer(false)}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            backgroundColor: theme.palette.background.paper,
+          },
+        }}
+      >
         {drawer}
       </Drawer>
 
-      <Container component="main" sx={{ flexGrow: 1, py: 3 }}>
-        {children}
-      </Container>
+      <Box component="main" sx={{ flexGrow: 1, py: { xs: 5, md: 8 } }}>
+        <Container maxWidth="lg">{children}</Container>
+      </Box>
 
       <Footer />
     </Box>

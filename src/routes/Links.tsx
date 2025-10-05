@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Container,
   Typography,
   Card,
   CardContent,
@@ -10,129 +9,148 @@ import {
   Box,
   Link as MuiLink,
   useTheme,
-  Divider,
   Paper,
+  Grid,
+  Stack,
+  Chip,
 } from '@mui/material';
-import Grid from '@mui/material/Grid';
 import LanguageIcon from '@mui/icons-material/Language';
 import CardMembershipIcon from '@mui/icons-material/CardMembership';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import SearchIcon from '@mui/icons-material/Search';
-
-interface ExternalLink {
-  key: string;
-  title: string;
-  url: string;
-  description: string;
-  icon: React.ReactNode;
-}
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { alpha } from '@mui/material/styles';
 
 const Links: React.FC = () => {
   const { t } = useTranslation();
   const theme = useTheme();
 
-  const externalLinks: ExternalLink[] = [
+  const externalLinks = [
     {
       key: 'ec',
-      title: t('links.ec'),
       url: 'https://www.ecs.gov.bd/',
-      description:
-        'Official website of the Bangladesh Election Commission with all voting information.',
-      icon: <LanguageIcon sx={{ fontSize: 40, color: theme.palette.primary.main }} />,
+      icon: <LanguageIcon sx={{ fontSize: 28 }} />,
     },
     {
       key: 'nid',
-      title: t('links.nid'),
       url: 'https://services.nidw.gov.bd/',
-      description: 'National ID portal where you can apply for NID and check application status.',
-      icon: <CardMembershipIcon sx={{ fontSize: 40, color: theme.palette.primary.main }} />,
+      icon: <CardMembershipIcon sx={{ fontSize: 28 }} />,
     },
     {
       key: 'voter',
-      title: t('links.voter'),
       url: 'https://services.nidw.gov.bd/voter-registration',
-      description: 'Register as a voter or update your existing voter information here.',
-      icon: <HowToRegIcon sx={{ fontSize: 40, color: theme.palette.primary.main }} />,
+      icon: <HowToRegIcon sx={{ fontSize: 28 }} />,
     },
     {
       key: 'status',
-      title: t('links.status'),
       url: 'https://services.nidw.gov.bd/check-status',
-      description: 'Check the status of your NID or voter registration application.',
-      icon: <SearchIcon sx={{ fontSize: 40, color: theme.palette.primary.main }} />,
+      icon: <SearchIcon sx={{ fontSize: 28 }} />,
     },
   ];
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
+    <Box sx={{ py: { xs: 6, md: 8 } }}>
       <Paper
         elevation={0}
         sx={{
-          p: 3,
-          mb: 4,
-          backgroundColor:
-            theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
-          borderRadius: 2,
+          mb: { xs: 4, md: 6 },
+          p: { xs: 4, md: 6 },
+          background:
+            theme.palette.mode === 'light'
+              ? 'linear-gradient(135deg, rgba(26,115,232,0.12) 0%, rgba(26,115,232,0.05) 100%)'
+              : 'linear-gradient(135deg, rgba(138,180,248,0.2) 0%, rgba(138,180,248,0.1) 100%)',
         }}
       >
-        <Typography variant="h4" component="h1" gutterBottom align="center" sx={{ mb: 4 }}>
-          {t('links.title')}
-        </Typography>
+        <Stack spacing={2} alignItems={{ xs: 'flex-start', md: 'center' }} textAlign={{ xs: 'left', md: 'center' }}>
+          <Chip label={t('links.title')} color="primary" variant="outlined" sx={{ fontWeight: 600 }} />
+          <Typography variant="h3" component="h1" sx={{ maxWidth: 640 }}>
+            {t('links.heading')}
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 700 }}>
+            {t('links.description')}
+          </Typography>
+        </Stack>
+      </Paper>
 
-        <Divider sx={{ mb: 4 }} />
+      <Grid container spacing={{ xs: 3, md: 4 }}>
+        {externalLinks.map(link => {
+          const content = t(`links.items.${link.key}`, { returnObjects: true }) as {
+            title: string;
+            description: string;
+          };
 
-        <Grid container spacing={3}>
-          {externalLinks.map(link => (
-            <Grid item xs={12} sm={6} md={6} key={link.key}>
+          return (
+            <Grid item xs={12} md={6} key={link.key}>
               <Card
-                elevation={3}
+                elevation={0}
                 sx={{
                   height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
-                  transition: 'transform 0.2s ease-in-out',
+                  borderRadius: 28,
+                  backgroundColor: theme.palette.background.paper,
+                  border: `1px solid ${alpha(theme.palette.primary.main, theme.palette.mode === 'light' ? 0.08 : 0.2)}`,
+                  transition: 'transform 0.25s ease, box-shadow 0.25s ease',
                   '&:hover': {
-                    transform: 'translateY(-5px)',
+                    transform: 'translateY(-6px)',
+                    boxShadow:
+                      theme.palette.mode === 'light'
+                        ? '0px 24px 48px rgba(26, 115, 232, 0.12)'
+                        : '0px 28px 50px rgba(0, 0, 0, 0.7)',
                   },
                 }}
               >
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                    <Box sx={{ mr: 2 }}>{link.icon}</Box>
+                <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                  <Stack direction="row" spacing={2} alignItems="center">
+                    <Box
+                      sx={{
+                        width: 56,
+                        height: 56,
+                        borderRadius: 3,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: alpha(theme.palette.primary.main, 0.12),
+                        color: theme.palette.primary.main,
+                      }}
+                    >
+                      {link.icon}
+                    </Box>
                     <Typography variant="h5" component="h2">
-                      {link.title}
+                      {content.title}
                     </Typography>
-                  </Box>
+                  </Stack>
                   <Typography variant="body2" color="text.secondary">
-                    {link.description}
+                    {content.description}
                   </Typography>
                 </CardContent>
-                <CardActions sx={{ justifyContent: 'flex-end', p: 2 }}>
+                <CardActions sx={{ justifyContent: 'space-between', px: 3, pb: 3 }}>
+                  <Typography variant="caption" color="text.secondary">
+                    {t('links.officialLabel')}
+                  </Typography>
                   <Button
                     variant="contained"
-                    color="primary"
                     component={MuiLink}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    sx={{ textTransform: 'none' }}
+                    endIcon={<OpenInNewIcon />}
                   >
-                    {t('common.learnMore')}
+                    {t('common.openLink')}
                   </Button>
                 </CardActions>
               </Card>
             </Grid>
-          ))}
-        </Grid>
-      </Paper>
+          );
+        })}
+      </Grid>
 
-      <Box sx={{ mt: 4, textAlign: 'center' }}>
+      <Box sx={{ mt: { xs: 4, md: 6 }, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary">
-          Note: All links open official government websites in a new tab. Always verify you&apos;re
-          on an official government domain.
+          {t('links.disclaimer')}
         </Typography>
       </Box>
-    </Container>
+    </Box>
   );
 };
 
