@@ -1,66 +1,50 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Container, Typography, Button, Box, Paper, useTheme } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Box, Typography, Button, Paper, Stack } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 const NotFound: React.FC = () => {
   const { t } = useTranslation();
-  const theme = useTheme();
 
   return (
-    <Container maxWidth="sm" sx={{ py: 8 }}>
+    <Box sx={{ py: { xs: 8, md: 12 }, display: 'flex', justifyContent: 'center' }}>
       <Paper
-        elevation={3}
+        elevation={0}
         sx={{
-          p: 4,
-          borderRadius: 2,
+          maxWidth: 560,
+          width: '100%',
+          px: { xs: 4, md: 6 },
+          py: { xs: 6, md: 8 },
           textAlign: 'center',
-          backgroundColor:
-            theme.palette.mode === 'dark'
-              ? 'rgba(255, 255, 255, 0.05)'
-              : 'rgba(255, 255, 255, 0.9)',
+          background: 'linear-gradient(145deg, rgba(26,115,232,0.12) 0%, rgba(26,115,232,0.04) 100%)',
         }}
       >
-        <ErrorOutlineIcon
-          sx={{
-            fontSize: 100,
-            color: theme.palette.error.main,
-            mb: 2,
-          }}
-        />
-
-        <Typography variant="h2" component="h1" gutterBottom>
-          404
-        </Typography>
-
-        <Typography variant="h4" component="h2" gutterBottom>
-          Page Not Found
-        </Typography>
-
-        <Typography variant="body1" sx={{ mb: 4 }}>
-          The page you are looking for doesn&apos;t exist or has been moved.
-        </Typography>
-
-        <Button
-          component={Link}
-          to="/"
-          variant="contained"
-          color="primary"
-          size="large"
-          startIcon={<HomeIcon />}
-        >
-          {t('nav.home')}
-        </Button>
+        <Stack spacing={3} alignItems="center">
+          <ErrorOutlineIcon sx={{ fontSize: 80, color: 'primary.main' }} />
+          <Typography variant="h2" component="h1">
+            404
+          </Typography>
+          <Typography variant="h4" component="h2">
+            {t('notFound.title')}
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 420 }}>
+            {t('notFound.description')}
+          </Typography>
+          <Button
+            component={RouterLink}
+            to="/"
+            variant="contained"
+            color="primary"
+            size="large"
+            startIcon={<HomeIcon />}
+          >
+            {t('notFound.cta')}
+          </Button>
+        </Stack>
       </Paper>
-
-      <Box sx={{ mt: 4, textAlign: 'center' }}>
-        <Typography variant="body2" color="text.secondary">
-          If you believe this is an error, please contact the administrator.
-        </Typography>
-      </Box>
-    </Container>
+    </Box>
   );
 };
 
